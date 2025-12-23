@@ -226,7 +226,6 @@ export default function DashboardGrid() {
             minH: 2,
           }))}
           rowHeight={100}
-          width={1200}
           isDraggable={isEditing}
           isResizable={isEditing}
           onLayoutChange={handleLayoutChange}

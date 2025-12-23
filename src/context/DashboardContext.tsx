@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState, ReactNode } from 'react'
 export interface DashboardPanel {
   id: string
   title: string
-  type: 'chart' | 'stats' | 'notes' | 'calendar' | 'weather' | 'embed'
+  type: 'chart' | 'stats' | 'notes' | 'calendar' | 'weather' | 'embed' | 'iframe'
   x: number
   y: number
   w: number

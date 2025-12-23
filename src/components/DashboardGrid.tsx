@@ -158,6 +158,7 @@ export default function DashboardGrid() {
               <option value="calendar">Calendar</option>
               <option value="weather">Weather</option>
               <option value="embed">Embed Link</option>
+              <option value="iframe">iFrame</option>
             </select>
           </div>
           <div className="grid grid-cols-2 gap-2 mb-3">

@@ -5,6 +5,7 @@ import StatsPanel from './panels/StatsPanel'
 import CalendarPanel from './panels/CalendarPanel'
 import WeatherPanel from './panels/WeatherPanel'
 import EmbedPanel from './panels/EmbedPanel'
+import IframePanel from './panels/IframePanel'
 
 interface Props {
   panel: DashboardPanelType
@@ -26,6 +27,8 @@ export default function DashboardPanel({ panel, isEditing = false }: Props) {
         return <WeatherPanel panel={panel} />
       case 'embed':
         return <EmbedPanel panel={panel} isEditing={isEditing} />
+      case 'iframe':
+        return <IframePanel panel={panel} isEditing={isEditing} />
       default:
         return <NotesPanel panel={panel} isEditing={isEditing} />
     }

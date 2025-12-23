@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 //@ts-ignore
 import GridLayout from 'react-grid-layout'
 import 'react-grid-layout/css/styles.css'
@@ -22,6 +22,8 @@ export default function DashboardGrid() {
   const [showSettings, setShowSettings] = useState(false)
   const [editingPanelId, setEditingPanelId] = useState<string | null>(null)
   const [panelBackup, setPanelBackup] = useState<DashboardPanelType | null>(null)
+  const [containerWidth, setContainerWidth] = useState(1200)
+  const containerRef = useRef<HTMLDivElement>(null)
   const [newPanel, setNewPanel] = useState({
     title: '',
     type: 'notes' as const,
@@ -39,6 +41,19 @@ export default function DashboardGrid() {
       }
     }
   }, [currentDashboard])
+
+  // Track container width for responsive grid
+  useEffect(() => {
+    const updateWidth = () => {
+      if (containerRef.current) {
+        setContainerWidth(containerRef.current.offsetWidth)
+      }
+    }
+    
+    updateWidth()
+    window.addEventListener('resize', updateWidth)
+    return () => window.removeEventListener('resize', updateWidth)
+  }, [])
 
   const toggleEditMode = () => {
     setIsEditing(!isEditing)
@@ -117,7 +132,7 @@ export default function DashboardGrid() {
   }
 
   return (
-    <div className="h-full p-8">
+    <div className="h-full p-8" ref={containerRef}>
       {showSettings && <DashboardSettings onClose={() => setShowSettings(false)} />}
       
       <div className="flex justify-between items-center mb-6">
@@ -225,6 +240,7 @@ export default function DashboardGrid() {
             minW: 2,
             minH: 2,
           }))}
+          width={containerWidth}
           rowHeight={100}
           isDraggable={isEditing}
           isResizable={isEditing}

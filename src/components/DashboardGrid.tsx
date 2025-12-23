@@ -69,6 +69,10 @@ export default function DashboardGrid() {
     removePanel(panelId)
   }
 
+  const handleUpdatePanelTitle = (panelId: string, newTitle: string) => {
+    updatePanel(panelId, { title: newTitle })
+  }
+
   const handleLayoutChange = (layout: readonly LayoutItem[]) => {
     if (!isEditing || !currentDashboard) return
     
@@ -215,7 +219,12 @@ export default function DashboardGrid() {
             className="bg-slate-900 border-2 border-slate-700 hover:border-indigo-500 transition-all flex flex-col"
           >
             {isEditing && (
-              <div className="drag-handle cursor-move bg-slate-800 border-b-2 border-slate-700 p-2 flex justify-between items-center">
+              <div className="drag-handle cursor-move bg-slate-800 border-b-2 border-slate-700 p-2 flex justify-between items-center" onMouseDown={(e) => {
+                // Only allow dragging when clicking on the handle itself, not on buttons or their children
+                if ((e.target as HTMLElement).closest('button')) {
+                  e.stopPropagation();
+                }
+              }}>
                 <span className="text-white text-xs font-bold">☰ Drag to move</span>
                 <div className="flex gap-2">
                   <button
@@ -239,7 +248,16 @@ export default function DashboardGrid() {
             )}
             
             <div className="flex-1 p-6 overflow-auto">
-              <h3 className="font-bold mb-4 text-white">{panel.title}</h3>
+              {isEditing ? (
+                <input
+                  value={panel.title}
+                  onChange={(e) => handleUpdatePanelTitle(panel.id, e.target.value)}
+                  className="font-bold mb-4 w-full bg-slate-800 border-2 border-slate-700 focus:outline-none focus:border-indigo-500 text-white px-3 py-2"
+                  placeholder="Panel title"
+                />
+              ) : (
+                <h3 className="font-bold mb-4 text-white">{panel.title}</h3>
+              )}
               <DashboardPanel panel={panel} isEditing={editingPanelId === panel.id} />
             </div>
           </div>

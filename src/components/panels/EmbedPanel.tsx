@@ -30,6 +30,8 @@ export default function EmbedPanel({ panel, isEditing = false }: Props) {
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             onBlur={saveUrl}
+            onMouseDown={(e) => e.stopPropagation()}
+            onMouseMove={(e) => e.stopPropagation()}
             autoFocus
             className="p-3 bg-slate-800 border-2 border-slate-700 focus:outline-none focus:border-indigo-500 text-white placeholder-slate-400"
             placeholder="Enter URL to embed (e.g., https://example.com)"

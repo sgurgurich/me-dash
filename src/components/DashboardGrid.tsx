@@ -242,7 +242,12 @@ export default function DashboardGrid() {
               </div>
             )}
             
-            <div className="flex-1 p-6 overflow-auto">
+            <div className="flex-1 p-6 overflow-auto" onMouseDown={(e) => {
+              // Prevent dragging when clicking on panel content
+              if (!(e.target as HTMLElement).closest('.drag-handle')) {
+                e.stopPropagation();
+              }
+            }}>
               {isEditing ? (
                 <input
                   value={panel.title}

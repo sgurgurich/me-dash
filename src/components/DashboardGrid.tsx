@@ -68,7 +68,7 @@ export default function DashboardGrid() {
     removePanel(panelId)
   }
 
-  const handleLayoutChange = (layout: LayoutItem[]) => {
+  const handleLayoutChange = (layout: readonly LayoutItem[]) => {
     if (!isEditing || !currentDashboard) return
     
     layout.forEach((item) => {
@@ -198,7 +198,6 @@ export default function DashboardGrid() {
             minW: 2,
             minH: 2,
           }))}
-          cols={12}
           rowHeight={100}
           width={1200}
           isDraggable={isEditing}
@@ -206,6 +205,7 @@ export default function DashboardGrid() {
           onLayoutChange={handleLayoutChange}
           draggableHandle=".drag-handle"
           compactType="vertical"
+          {...({ cols: 12 } as any)}
         >
         {currentDashboard.panels.map((panel) => (
           <div

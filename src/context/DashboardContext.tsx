@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
+import React, { createContext, useContext, useState, ReactNode } from 'react'
 
 export interface DashboardPanel {
   id: string
@@ -68,7 +68,6 @@ export const DashboardProvider: React.FC<{ children: ReactNode }> = ({ children 
   const [currentUser, setCurrentUser] = useState<User | null>(null)
   const [currentDashboard, setCurrentDashboardState] = useState<Dashboard | null>(null)
   const [dashboards, setDashboards] = useState<Dashboard[]>([])
-  const [isInitialized, setIsInitialized] = useState(false)
   const [theme, setThemeState] = useState<'light' | 'dark'>('light')
   const [colorPalette, setColorPalette] = useState({
     primary: '#3B82F6',
@@ -176,12 +175,10 @@ export const DashboardProvider: React.FC<{ children: ReactNode }> = ({ children 
       ]
       localStorage.setItem('dashboards', JSON.stringify(sampleDashboards))
       setDashboards(sampleDashboards)
-      setIsInitialized(true)
       console.log('Sample dashboards created and set:', sampleDashboards)
     } else {
       console.log('Loading existing dashboards...')
       loadDashboards()
-      setIsInitialized(true)
     }
   }
 

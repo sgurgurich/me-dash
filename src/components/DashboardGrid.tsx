@@ -20,6 +20,7 @@ export default function DashboardGrid() {
   const [isEditing, setIsEditing] = useState(false)
   const [showAddPanel, setShowAddPanel] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
+  const [editingPanelId, setEditingPanelId] = useState<string | null>(null)
   const [newPanel, setNewPanel] = useState({
     title: '',
     type: 'notes' as const,
@@ -216,18 +217,30 @@ export default function DashboardGrid() {
             {isEditing && (
               <div className="drag-handle cursor-move bg-slate-800 border-b-2 border-slate-700 p-2 flex justify-between items-center">
                 <span className="text-white text-xs font-bold">☰ Drag to move</span>
-                <button
-                  onClick={() => handleRemovePanel(panel.id)}
-                  className="px-3 py-1 bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition-all"
-                >
-                  Delete
-                </button>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => setEditingPanelId(editingPanelId === panel.id ? null : panel.id)}
+                    className={`px-3 py-1 text-white text-xs font-bold transition-all ${
+                      editingPanelId === panel.id
+                        ? 'bg-green-600 hover:bg-green-500'
+                        : 'bg-indigo-600 hover:bg-indigo-500'
+                    }`}
+                  >
+                    {editingPanelId === panel.id ? 'Done' : 'Edit'}
+                  </button>
+                  <button
+                    onClick={() => handleRemovePanel(panel.id)}
+                    className="px-3 py-1 bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition-all"
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             )}
             
             <div className="flex-1 p-4 overflow-auto">
               <h3 className="font-bold mb-3 text-white">{panel.title}</h3>
-              <DashboardPanel panel={panel} />
+              <DashboardPanel panel={panel} isEditing={editingPanelId === panel.id} />
             </div>
           </div>
         ))}

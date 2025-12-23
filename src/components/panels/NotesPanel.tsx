@@ -3,11 +3,11 @@ import { useDashboard, DashboardPanel as DashboardPanelType } from '../../contex
 
 interface Props {
   panel: DashboardPanelType
+  isEditing?: boolean
 }
 
-export default function NotesPanel({ panel }: Props) {
+export default function NotesPanel({ panel, isEditing = false }: Props) {
   const { updatePanel } = useDashboard()
-  const [editing, setEditing] = useState(false)
   const [content, setContent] = useState(panel.config?.content || '')
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export default function NotesPanel({ panel }: Props) {
 
   return (
     <div className="h-full flex flex-col">
-      {editing ? (
+      {isEditing ? (
         <textarea
           value={content}
           onChange={(e) => setContent(e.target.value)}
@@ -38,16 +38,6 @@ export default function NotesPanel({ panel }: Props) {
           {content || 'Click Edit to add notes'}
         </div>
       )}
-      <button
-        onClick={() => setEditing(!editing)}
-        className={`mt-3 px-4 py-2 font-bold transition-all ${
-          editing
-            ? 'bg-green-600 hover:bg-green-500 text-white'
-            : 'bg-indigo-600 hover:bg-indigo-500 text-white'
-        }`}
-      >
-        {editing ? 'Done' : 'Edit'}
-      </button>
     </div>
   )
 }

@@ -8,13 +8,14 @@ import EmbedPanel from './panels/EmbedPanel'
 
 interface Props {
   panel: DashboardPanelType
+  isEditing?: boolean
 }
 
-export default function DashboardPanel({ panel }: Props) {
+export default function DashboardPanel({ panel, isEditing = false }: Props) {
   const renderPanel = () => {
     switch (panel.type) {
       case 'notes':
-        return <NotesPanel panel={panel} />
+        return <NotesPanel panel={panel} isEditing={isEditing} />
       case 'chart':
         return <ChartPanel panel={panel} />
       case 'stats':
@@ -24,9 +25,9 @@ export default function DashboardPanel({ panel }: Props) {
       case 'weather':
         return <WeatherPanel panel={panel} />
       case 'embed':
-        return <EmbedPanel panel={panel} />
+        return <EmbedPanel panel={panel} isEditing={isEditing} />
       default:
-        return <NotesPanel panel={panel} />
+        return <NotesPanel panel={panel} isEditing={isEditing} />
     }
   }
 

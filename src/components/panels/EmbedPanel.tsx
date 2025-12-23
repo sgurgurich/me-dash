@@ -3,11 +3,11 @@ import { useDashboard, DashboardPanel as DashboardPanelType } from '../../contex
 
 interface Props {
   panel: DashboardPanelType
+  isEditing?: boolean
 }
 
-export default function EmbedPanel({ panel }: Props) {
+export default function EmbedPanel({ panel, isEditing = false }: Props) {
   const { updatePanel } = useDashboard()
-  const [editing, setEditing] = useState(false)
   const [url, setUrl] = useState(panel.config?.url || '')
 
   useEffect(() => {
@@ -20,26 +20,20 @@ export default function EmbedPanel({ panel }: Props) {
     updatePanel(panel.id, {
       config: { url }
     })
-    setEditing(false)
   }
 
   return (
     <div className="h-full flex flex-col">
-      {editing ? (
+      {isEditing ? (
         <div className="flex-1 flex flex-col">
           <input
             value={url}
             onChange={(e) => setUrl(e.target.value)}
+            onBlur={saveUrl}
             autoFocus
             className="p-3 bg-slate-800 border-2 border-slate-700 focus:outline-none focus:border-indigo-500 text-white placeholder-slate-400"
             placeholder="Enter URL to embed (e.g., https://example.com)"
           />
-          <button
-            onClick={saveUrl}
-            className="mt-3 px-4 py-2 bg-green-600 hover:bg-green-500 text-white font-bold transition-all"
-          >
-            Save URL
-          </button>
         </div>
       ) : (
         <>
@@ -55,12 +49,6 @@ export default function EmbedPanel({ panel }: Props) {
               Click Edit to add an embeddable URL
             </div>
           )}
-          <button
-            onClick={() => setEditing(true)}
-            className="mt-3 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition-all"
-          >
-            Edit URL
-          </button>
         </>
       )}
     </div>

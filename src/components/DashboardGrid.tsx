@@ -238,8 +238,8 @@ export default function DashboardGrid() {
               </div>
             )}
             
-            <div className="flex-1 p-4 overflow-auto">
-              <h3 className="font-bold mb-3 text-white">{panel.title}</h3>
+            <div className="flex-1 p-6 overflow-auto">
+              <h3 className="font-bold mb-4 text-white">{panel.title}</h3>
               <DashboardPanel panel={panel} isEditing={editingPanelId === panel.id} />
             </div>
           </div>

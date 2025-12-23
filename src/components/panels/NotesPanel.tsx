@@ -30,11 +30,11 @@ export default function NotesPanel({ panel, isEditing = false }: Props) {
           onChange={(e) => setContent(e.target.value)}
           onBlur={saveContent}
           autoFocus
-          className="flex-1 p-3 bg-slate-800 border-2 border-slate-700 focus:outline-none focus:border-indigo-500 text-white placeholder-slate-400 resize-none"
+          className="flex-1 p-3 pb-6 bg-slate-800 border-2 border-slate-700 focus:outline-none focus:border-indigo-500 text-white placeholder-slate-400 resize-none"
           placeholder="Type your notes..."
         />
       ) : (
-        <div className="flex-1 p-3 text-slate-300 whitespace-pre-wrap">
+        <div className="flex-1 p-3 pb-6 text-slate-300 whitespace-pre-wrap">
           {content || 'Click Edit to add notes'}
         </div>
       )}

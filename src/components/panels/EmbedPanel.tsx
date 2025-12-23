@@ -40,12 +40,12 @@ export default function EmbedPanel({ panel, isEditing = false }: Props) {
           {url ? (
             <iframe
               src={url}
-              className="flex-1 w-full border-2 border-slate-700"
+              className="flex-1 w-full border-2 border-slate-700 mb-6"
               title={panel.title}
               sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
             />
           ) : (
-            <div className="flex-1 p-3 text-slate-300 text-center flex items-center justify-center">
+            <div className="flex-1 p-3 pb-6 text-slate-300 text-center flex items-center justify-center">
               Click Edit to add an embeddable URL
             </div>
           )}

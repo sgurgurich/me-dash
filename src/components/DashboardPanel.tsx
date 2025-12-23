@@ -4,6 +4,7 @@ import ChartPanel from './panels/ChartPanel'
 import StatsPanel from './panels/StatsPanel'
 import CalendarPanel from './panels/CalendarPanel'
 import WeatherPanel from './panels/WeatherPanel'
+import EmbedPanel from './panels/EmbedPanel'
 
 interface Props {
   panel: DashboardPanelType
@@ -22,6 +23,8 @@ export default function DashboardPanel({ panel }: Props) {
         return <CalendarPanel panel={panel} />
       case 'weather':
         return <WeatherPanel panel={panel} />
+      case 'embed':
+        return <EmbedPanel panel={panel} />
       default:
         return <NotesPanel panel={panel} />
     }

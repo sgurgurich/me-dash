@@ -248,7 +248,7 @@ export default function DashboardGrid() {
                 e.stopPropagation();
               }
             }}>
-              {isEditing ? (
+              {editingPanelId === panel.id ? (
                 <input
                   value={panel.title}
                   onChange={(e) => handleUpdatePanelTitle(panel.id, e.target.value)}

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useDashboard } from '../context/DashboardContext'
 
 export default function DashboardList() {
-  const { dashboards, createDashboard, deleteDashboard, setCurrentDashboard, shareDashboard, unshareDashboard, saveDashboards, setCurrentDashboardDirect } = useDashboard()
+  const { dashboards, createDashboard, setCurrentDashboard, shareDashboard, unshareDashboard, saveDashboards, setCurrentDashboardDirect } = useDashboard()
   const [showCreateForm, setShowCreateForm] = useState(false)
   const [isCreating, setIsCreating] = useState(false)
   const [newDashboard, setNewDashboard] = useState({ name: '', description: '' })
@@ -40,13 +40,6 @@ export default function DashboardList() {
   const selectDashboard = (id: string) => {
     setCurrentDashboard(id)
     window.location.hash = '#dashboard'
-  }
-
-  const handleDeleteDashboard = (id: string) => {
-    if (confirm('Are you sure you want to delete this dashboard?')) {
-      deleteDashboard(id)
-      saveDashboards()
-    }
   }
 
   const toggleShare = (id: string) => {
@@ -161,12 +154,6 @@ export default function DashboardList() {
                 }`}
               >
                 {dashboard.isPublic ? '✓' : 'Share'}
-              </button>
-              <button
-                onClick={() => handleDeleteDashboard(dashboard.id)}
-                className="px-4 py-2 bg-red-600 hover:bg-red-500 text-white font-bold transition-all"
-              >
-                Delete
               </button>
             </div>
           </div>

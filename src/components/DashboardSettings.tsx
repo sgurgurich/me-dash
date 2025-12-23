@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useDashboard } from '../context/DashboardContext'
 
 export default function DashboardSettings({ onClose }: { onClose: () => void }) {
-  const { currentDashboard, updateDashboard, saveDashboards } = useDashboard()
+  const { currentDashboard, updateDashboard, saveDashboards, deleteDashboard } = useDashboard()
   
   const [settings, setSettings] = useState({
     theme: currentDashboard?.theme || 'dark',
@@ -19,6 +19,15 @@ export default function DashboardSettings({ onClose }: { onClose: () => void }) 
         backgroundColor: settings.backgroundColor,
       })
       saveDashboards()
+      onClose()
+    }
+  }
+
+  const handleDelete = () => {
+    if (currentDashboard && confirm(`Are you sure you want to delete "${currentDashboard.name}"? This action cannot be undone.`)) {
+      deleteDashboard(currentDashboard.id)
+      saveDashboards()
+      window.location.hash = '#dashboards'
       onClose()
     }
   }
@@ -90,6 +99,15 @@ export default function DashboardSettings({ onClose }: { onClose: () => void }) 
             className="flex-1 px-6 py-3 bg-slate-700 hover:bg-slate-600 text-white font-bold transition-all"
           >
             Cancel
+          </button>
+        </div>
+
+        <div className="mt-6 pt-6 border-t-2 border-slate-700">
+          <button
+            onClick={handleDelete}
+            className="w-full px-6 py-3 bg-red-600 hover:bg-red-500 text-white font-bold transition-all"
+          >
+            Delete Dashboard
           </button>
         </div>
       </div>

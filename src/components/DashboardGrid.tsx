@@ -16,7 +16,7 @@ interface LayoutItem {
 }
 
 export default function DashboardGrid() {
-  const { currentDashboard, addPanelToDashboard, updatePanel, removePanel, saveDashboards } = useDashboard()
+  const { currentDashboard, addPanelToDashboard, updatePanel, removePanel, saveDashboards, setCurrentDashboardDirect, updateDashboard } = useDashboard()
   const [isEditing, setIsEditing] = useState(false)
   const [showAddPanel, setShowAddPanel] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
@@ -110,17 +110,24 @@ export default function DashboardGrid() {
   const handleLayoutChange = (layout: readonly LayoutItem[]) => {
     if (!isEditing || !currentDashboard) return
     
-    layout.forEach((item) => {
-      const panel = currentDashboard.panels.find(p => p.id === item.i)
-      if (panel) {
-        updatePanel(panel.id, {
-          x: item.x,
-          y: item.y,
-          w: item.w,
-          h: item.h,
-        })
+    // Batch update all panels at once to prevent multiple re-renders
+    const updatedPanels = currentDashboard.panels.map(panel => {
+      const layoutItem = layout.find(item => item.i === panel.id)
+      if (layoutItem) {
+        return {
+          ...panel,
+          x: layoutItem.x,
+          y: layoutItem.y,
+          w: layoutItem.w,
+          h: layoutItem.h,
+        }
       }
+      return panel
     })
+    
+    const updated = { ...currentDashboard, panels: updatedPanels }
+    setCurrentDashboardDirect(updated)
+    updateDashboard(updated)
   }
 
   if (!currentDashboard) {

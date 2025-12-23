@@ -21,6 +21,7 @@ export default function DashboardGrid() {
   const [showAddPanel, setShowAddPanel] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
   const [editingPanelId, setEditingPanelId] = useState<string | null>(null)
+  const [panelBackup, setPanelBackup] = useState<DashboardPanelType | null>(null)
   const [newPanel, setNewPanel] = useState({
     title: '',
     type: 'notes' as const,
@@ -71,6 +72,24 @@ export default function DashboardGrid() {
 
   const handleUpdatePanelTitle = (panelId: string, newTitle: string) => {
     updatePanel(panelId, { title: newTitle })
+  }
+
+  const handleStartEditPanel = (panel: DashboardPanelType) => {
+    setPanelBackup({ ...panel })
+    setEditingPanelId(panel.id)
+  }
+
+  const handleSavePanel = () => {
+    setPanelBackup(null)
+    setEditingPanelId(null)
+  }
+
+  const handleCancelPanel = () => {
+    if (panelBackup) {
+      updatePanel(panelBackup.id, panelBackup)
+      setPanelBackup(null)
+    }
+    setEditingPanelId(null)
   }
 
   const handleLayoutChange = (layout: readonly LayoutItem[]) => {
@@ -224,16 +243,29 @@ export default function DashboardGrid() {
               <div className="bg-slate-800 border-b-2 border-slate-700 p-2 flex justify-between items-center">
                 <span className="drag-handle cursor-move text-white text-xs font-bold">☰ Drag to move</span>
                 <div className="flex gap-2">
-                  <button
-                    onClick={() => setEditingPanelId(editingPanelId === panel.id ? null : panel.id)}
-                    className={`px-3 py-1 text-white text-xs font-bold transition-all ${
-                      editingPanelId === panel.id
-                        ? 'bg-green-600 hover:bg-green-500'
-                        : 'bg-indigo-600 hover:bg-indigo-500'
-                    }`}
-                  >
-                    {editingPanelId === panel.id ? 'Done' : 'Edit'}
-                  </button>
+                  {editingPanelId === panel.id ? (
+                    <>
+                      <button
+                        onClick={handleSavePanel}
+                        className="px-3 py-1 bg-green-600 hover:bg-green-500 text-white text-xs font-bold transition-all"
+                      >
+                        Save
+                      </button>
+                      <button
+                        onClick={handleCancelPanel}
+                        className="px-3 py-1 bg-yellow-600 hover:bg-yellow-500 text-white text-xs font-bold transition-all"
+                      >
+                        Cancel
+                      </button>
+                    </>
+                  ) : (
+                    <button
+                      onClick={() => handleStartEditPanel(panel)}
+                      className="px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition-all"
+                    >
+                      Edit
+                    </button>
+                  )}
                   <button
                     onClick={() => handleRemovePanel(panel.id)}
                     className="px-3 py-1 bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition-all"

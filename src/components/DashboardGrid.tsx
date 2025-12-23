@@ -219,13 +219,8 @@ export default function DashboardGrid() {
             className="bg-slate-900 border-2 border-slate-700 hover:border-indigo-500 transition-all flex flex-col"
           >
             {isEditing && (
-              <div className="drag-handle cursor-move bg-slate-800 border-b-2 border-slate-700 p-2 flex justify-between items-center" onMouseDown={(e) => {
-                // Only allow dragging when clicking on the handle itself, not on buttons or their children
-                if ((e.target as HTMLElement).closest('button')) {
-                  e.stopPropagation();
-                }
-              }}>
-                <span className="text-white text-xs font-bold">☰ Drag to move</span>
+              <div className="bg-slate-800 border-b-2 border-slate-700 p-2 flex justify-between items-center">
+                <span className="drag-handle cursor-move text-white text-xs font-bold">☰ Drag to move</span>
                 <div className="flex gap-2">
                   <button
                     onClick={() => setEditingPanelId(editingPanelId === panel.id ? null : panel.id)}
@@ -252,6 +247,8 @@ export default function DashboardGrid() {
                 <input
                   value={panel.title}
                   onChange={(e) => handleUpdatePanelTitle(panel.id, e.target.value)}
+                  onMouseDown={(e) => e.stopPropagation()}
+                  onMouseMove={(e) => e.stopPropagation()}
                   className="font-bold mb-4 w-full bg-slate-800 border-2 border-slate-700 focus:outline-none focus:border-indigo-500 text-white px-3 py-2"
                   placeholder="Panel title"
                 />

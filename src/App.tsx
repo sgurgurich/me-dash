@@ -5,6 +5,7 @@ import Login from './components/Login'
 import DashboardList from './components/DashboardList'
 import DashboardGrid from './components/DashboardGrid'
 import Settings from './components/Settings'
+import Community from './components/Community'
 
 function AppContent() {
   const { currentUser, theme, setTheme, loadDashboards } = useDashboard()
@@ -48,6 +49,8 @@ function AppContent() {
         setCurrentView('settings')
       } else if (path === '#dashboard') {
         setCurrentView('dashboard')
+      } else if (path === '#community') {
+        setCurrentView('community')
       } else if (path === '#dashboards' || path === '#') {
         setCurrentView('dashboards')
       } else {
@@ -71,6 +74,8 @@ function AppContent() {
       window.location.hash = '#dashboard'
     } else if (view === 'settings') {
       window.location.hash = '#settings'
+    } else if (view === 'community') {
+      window.location.hash = '#community'
     } else {
       window.location.hash = '#dashboards'
     }
@@ -85,6 +90,7 @@ function AppContent() {
           {currentView === 'login' && <Login />}
           {currentView === 'dashboards' && <DashboardList />}
           {currentView === 'dashboard' && <DashboardGrid />}
+          {currentView === 'community' && <Community />}
           {currentView === 'settings' && <Settings />}
         </main>
       </div>

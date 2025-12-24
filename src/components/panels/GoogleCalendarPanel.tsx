@@ -34,7 +34,8 @@ export default function GoogleCalendarPanel({ panel, isEditing = false }: Props)
     // Try to extract calendar ID from various Google Calendar URL formats
     const srcMatch = input.match(/src=([^&]+)/)
     if (srcMatch) {
-      return `https://calendar.google.com/calendar/embed?src=${srcMatch[1]}&mode=AGENDA`
+      const decodedSrc = decodeURIComponent(srcMatch[1])
+      return `https://calendar.google.com/calendar/embed?src=${encodeURIComponent(decodedSrc)}&mode=AGENDA`
     }
     
     // If it's a full embed URL, use as-is

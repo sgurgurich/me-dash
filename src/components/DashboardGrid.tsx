@@ -25,9 +25,14 @@ export default function DashboardGrid() {
   const [containerWidth, setContainerWidth] = useState(1200)
   const [cols, setCols] = useState(12)
   const containerRef = useRef<HTMLDivElement>(null)
-  const [newPanel, setNewPanel] = useState({
+  const [newPanel, setNewPanel] = useState<{
+    title: string
+    type: DashboardPanelType['type']
+    w: number
+    h: number
+  }>({
     title: '',
-    type: 'notes' as const,
+    type: 'notes',
     w: 6,
     h: 3,
   })
@@ -52,7 +57,7 @@ export default function DashboardGrid() {
       defaultH = 5
     }
     
-    setNewPanel({ ...newPanel, type: type as any, w: defaultW, h: defaultH })
+    setNewPanel({ ...newPanel, type: type as DashboardPanelType['type'], w: defaultW, h: defaultH })
   }
 
   // Check if we should start in edit mode

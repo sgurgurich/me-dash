@@ -122,6 +122,29 @@ html, body {
   opacity: 1;
 }
 
+/* Mobile-specific styles for react-grid-layout */
+@media (max-width: 640px) {
+  .react-grid-item {
+    /* Ensure panels stack properly on mobile */
+    touch-action: none;
+  }
+  
+  .react-resizable-handle {
+    /* Make resize handle larger for touch devices */
+    width: 44px;
+    height: 44px;
+  }
+  
+  .react-resizable-handle-se::after {
+    /* Make resize indicator more visible on mobile */
+    right: 8px;
+    bottom: 8px;
+    width: 20px;
+    height: 20px;
+    border-width: 4px;
+  }
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

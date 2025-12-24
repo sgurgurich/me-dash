@@ -69,11 +69,11 @@ export default function DashboardList() {
         </div>
       )}
 
-      <div className="mb-6 flex justify-between items-center">
-        <h1 className="text-3xl font-black text-white">My Dashboards</h1>
+      <div className="mb-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+        <h1 className="text-2xl sm:text-3xl font-black text-white">My Dashboards</h1>
         <button
           onClick={() => setShowCreateForm(!showCreateForm)}
-          className="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition-all"
+          className="w-full sm:w-auto px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition-all"
         >
           New Dashboard
         </button>
@@ -98,16 +98,16 @@ export default function DashboardList() {
               className="w-full px-4 py-3 bg-slate-800 border-2 border-slate-700 focus:outline-none focus:border-indigo-500 text-white placeholder-slate-400 resize-none"
             />
           </div>
-          <div className="flex gap-3">
+          <div className="flex flex-col sm:flex-row gap-3">
             <button
               onClick={handleCreateDashboard}
-              className="px-6 py-2 bg-green-600 hover:bg-green-500 text-white font-bold transition-all"
+              className="w-full sm:w-auto px-6 py-2 bg-green-600 hover:bg-green-500 text-white font-bold transition-all"
             >
               Create
             </button>
             <button
               onClick={() => setShowCreateForm(false)}
-              className="px-6 py-2 bg-slate-700 hover:bg-slate-600 text-white font-bold transition-all"
+              className="w-full sm:w-auto px-6 py-2 bg-slate-700 hover:bg-slate-600 text-white font-bold transition-all"
             >
               Cancel
             </button>
@@ -121,7 +121,7 @@ export default function DashboardList() {
           <p className="text-slate-400 text-sm">Click "New Dashboard" to create your first dashboard</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 pb-6">
         {dashboards.map((dashboard) => (
           <div
             key={dashboard.id}
@@ -138,16 +138,16 @@ export default function DashboardList() {
             <p className="text-sm text-slate-400 mb-2">{dashboard.panels.length} panels</p>
             <p className="text-sm text-slate-300 mb-4">{dashboard.description || 'No description'}</p>
 
-            <div className="flex gap-2">
+            <div className="flex gap-2 flex-col sm:flex-row">
               <button
                 onClick={() => selectDashboard(dashboard.id)}
-                className="flex-1 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition-all"
+                className="flex-1 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition-all min-h-[44px]"
               >
                 Open
               </button>
               <button
                 onClick={() => toggleShare(dashboard.id)}
-                className={`px-4 py-2 font-bold transition-all ${
+                className={`px-4 py-2 font-bold transition-all min-h-[44px] ${
                   dashboard.isPublic
                     ? 'bg-green-600 hover:bg-green-500 text-white'
                     : 'bg-slate-700 hover:bg-slate-600 text-white'

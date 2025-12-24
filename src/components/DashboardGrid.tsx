@@ -281,13 +281,13 @@ export default function DashboardGrid() {
                     <>
                       <button
                         onClick={handleSavePanel}
-                        className="flex-1 sm:flex-none px-3 py-1 bg-green-600 hover:bg-green-500 text-white text-xs font-bold transition-all min-h-[44px]"
+                        className="flex-1 sm:flex-none px-3 py-2 bg-green-600 hover:bg-green-500 text-white text-xs font-bold transition-all min-h-[44px]"
                       >
                         Save
                       </button>
                       <button
                         onClick={handleCancelPanel}
-                        className="flex-1 sm:flex-none px-3 py-1 bg-yellow-600 hover:bg-yellow-500 text-white text-xs font-bold transition-all min-h-[44px]"
+                        className="flex-1 sm:flex-none px-3 py-2 bg-yellow-600 hover:bg-yellow-500 text-white text-xs font-bold transition-all min-h-[44px]"
                       >
                         Cancel
                       </button>
@@ -295,14 +295,14 @@ export default function DashboardGrid() {
                   ) : (
                     <button
                       onClick={() => handleStartEditPanel(panel)}
-                      className="flex-1 sm:flex-none px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition-all min-h-[44px]"
+                      className="flex-1 sm:flex-none px-3 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition-all min-h-[44px]"
                     >
                       Edit
                     </button>
                   )}
                   <button
                     onClick={() => handleRemovePanel(panel.id)}
-                    className="flex-1 sm:flex-none px-3 py-1 bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition-all min-h-[44px]"
+                    className="flex-1 sm:flex-none px-3 py-2 bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition-all min-h-[44px]"
                   >
                     Delete
                   </button>

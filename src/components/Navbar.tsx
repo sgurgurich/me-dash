@@ -80,7 +80,7 @@ export default function Navbar({ currentView, onNavigate }: NavbarProps) {
         {/* Mobile Hamburger Button */}
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="md:hidden p-2 text-white hover:bg-slate-800 transition-all"
+          className="md:hidden p-3 text-white hover:bg-slate-800 transition-all min-h-[44px] min-w-[44px]"
           aria-label="Toggle menu"
         >
           <svg

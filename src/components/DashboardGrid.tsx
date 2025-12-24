@@ -258,6 +258,7 @@ export default function DashboardGrid() {
             h: panel.h,
             minW: cols === 1 ? 1 : 2,
             minH: 2,
+            static: !isEditing,
           }))}
           width={containerWidth}
           rowHeight={100}

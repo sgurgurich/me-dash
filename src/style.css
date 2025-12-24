@@ -122,6 +122,16 @@ html, body {
   opacity: 1;
 }
 
+/* Hide resize handles on static (non-editable) grid items */
+.react-grid-item.static .react-resizable-handle {
+  display: none;
+}
+
+/* Disable pointer events on static grid items to prevent dragging */
+.react-grid-item.static {
+  cursor: default !important;
+}
+
 /* Mobile-specific styles for react-grid-layout */
 @media (max-width: 640px) {
   .react-grid-item {

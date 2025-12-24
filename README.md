@@ -20,6 +20,10 @@ A modern React application that allows users to create, customize, and share per
 - **Charts**: Visual bar charts for data representation
 - **Calendar**: Month calendar view with highlighting
 - **Weather**: Weather information display
+- **Embed Link**: Embed external content links
+- **iFrame**: Embed websites via iframe
+- **Twitter/X Timeline**: Display Twitter/X timelines
+- **Google Calendar**: Embed and display Google Calendar events
 
 🎯 **Drag & Drop**
 - Repositionable panels (coming with full drag-drop support)
@@ -61,7 +65,11 @@ src/
 │       ├── StatsPanel.tsx     # Statistics display
 │       ├── ChartPanel.tsx     # Chart visualization
 │       ├── CalendarPanel.tsx  # Calendar view
-│       └── WeatherPanel.tsx   # Weather display
+│       ├── WeatherPanel.tsx   # Weather display
+│       ├── EmbedPanel.tsx     # Embed external links
+│       ├── IframePanel.tsx    # iFrame embed
+│       ├── TwitterPanel.tsx   # Twitter/X timeline
+│       └── GoogleCalendarPanel.tsx  # Google Calendar embed
 ├── context/
 │   └── DashboardContext.tsx   # React context for dashboard state management
 ├── App.tsx                    # Root component

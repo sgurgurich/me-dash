@@ -32,6 +32,29 @@ export default function DashboardGrid() {
     h: 3,
   })
 
+  // Handle panel type change to set appropriate default sizes
+  const handlePanelTypeChange = (type: string) => {
+    let defaultW = 6
+    let defaultH = 3
+    
+    // Set default sizes based on panel type
+    if (type === 'google-calendar') {
+      defaultW = 8
+      defaultH = 5
+    } else if (type === 'chart') {
+      defaultW = 8
+      defaultH = 4
+    } else if (type === 'weather') {
+      defaultW = 12
+      defaultH = 4
+    } else if (type === 'iframe' || type === 'embed') {
+      defaultW = 8
+      defaultH = 5
+    }
+    
+    setNewPanel({ ...newPanel, type: type as any, w: defaultW, h: defaultH })
+  }
+
   // Check if we should start in edit mode
   useEffect(() => {
     if (currentDashboard) {
@@ -202,7 +225,7 @@ export default function DashboardGrid() {
             />
             <select
               value={newPanel.type}
-              onChange={(e) => setNewPanel({ ...newPanel, type: e.target.value as any })}
+              onChange={(e) => handlePanelTypeChange(e.target.value)}
               className="px-4 py-2 bg-slate-800 border-2 border-slate-700 focus:outline-none focus:border-indigo-500 text-white"
             >
               <option value="notes">Notes</option>
@@ -213,6 +236,7 @@ export default function DashboardGrid() {
               <option value="embed">Embed Link</option>
               <option value="iframe">iFrame</option>
               <option value="twitter">Twitter/X Timeline</option>
+              <option value="google-calendar">Google Calendar</option>
             </select>
           </div>
           <div className="grid grid-cols-2 gap-2 mb-3">

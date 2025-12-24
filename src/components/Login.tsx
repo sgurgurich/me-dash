@@ -24,14 +24,14 @@ export default function Login() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className="inline-block bg-white p-4 mb-4">
-            <h1 className="text-4xl font-black text-indigo-600">M</h1>
+            <h1 className="text-3xl sm:text-4xl font-black text-indigo-600">M</h1>
           </div>
-          <h1 className="text-4xl font-black text-white mb-2">Me.Dash</h1>
-          <p className="text-white">Your Personal Dashboard Space</p>
+          <h1 className="text-3xl sm:text-4xl font-black text-white mb-2">Me.Dash</h1>
+          <p className="text-white text-sm sm:text-base">Your Personal Dashboard Space</p>
         </div>
 
-        <div className="bg-slate-900 p-8 border-2 border-indigo-400">
-          <h2 className="text-2xl font-bold mb-6 text-white">Welcome Back</h2>
+        <div className="bg-slate-900 p-6 sm:p-8 border-2 border-indigo-400">
+          <h2 className="text-xl sm:text-2xl font-bold mb-6 text-white">Welcome Back</h2>
 
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
@@ -41,7 +41,7 @@ export default function Login() {
                 type="email"
                 required
                 placeholder="Email"
-                className="w-full px-4 py-3 bg-slate-800 border-2 border-slate-700 focus:outline-none focus:border-indigo-500 text-white placeholder-slate-400"
+                className="w-full px-4 py-3 bg-slate-800 border-2 border-slate-700 focus:outline-none focus:border-indigo-500 text-white placeholder-slate-400 min-h-[44px]"
               />
             </div>
 
@@ -52,13 +52,13 @@ export default function Login() {
                 type="password"
                 required
                 placeholder="Password"
-                className="w-full px-4 py-3 bg-slate-800 border-2 border-slate-700 focus:outline-none focus:border-indigo-500 text-white placeholder-slate-400"
+                className="w-full px-4 py-3 bg-slate-800 border-2 border-slate-700 focus:outline-none focus:border-indigo-500 text-white placeholder-slate-400 min-h-[44px]"
               />
             </div>
 
             <button
               type="submit"
-              className="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition-all"
+              className="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition-all min-h-[44px]"
             >
               Sign In
             </button>
@@ -66,13 +66,13 @@ export default function Login() {
             <button
               type="button"
               onClick={handleDevLogin}
-              className="w-full py-3 bg-green-600 hover:bg-green-500 text-white font-bold transition-all"
+              className="w-full py-3 bg-green-600 hover:bg-green-500 text-white font-bold transition-all min-h-[44px]"
             >
               Developer Mode
             </button>
           </form>
 
-          <div className="mt-6 text-center text-slate-400 text-sm">
+          <div className="mt-6 text-center text-slate-400 text-xs sm:text-sm">
             <p>Demo Mode - Try any email & password</p>
           </div>
         </div>

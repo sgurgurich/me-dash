@@ -23,6 +23,7 @@ export default function DashboardGrid() {
   const [editingPanelId, setEditingPanelId] = useState<string | null>(null)
   const [panelBackup, setPanelBackup] = useState<DashboardPanelType | null>(null)
   const [containerWidth, setContainerWidth] = useState(1200)
+  const [cols, setCols] = useState(12)
   const containerRef = useRef<HTMLDivElement>(null)
   const [newPanel, setNewPanel] = useState({
     title: '',
@@ -46,7 +47,17 @@ export default function DashboardGrid() {
   useEffect(() => {
     const updateWidth = () => {
       if (containerRef.current) {
-        setContainerWidth(containerRef.current.offsetWidth)
+        const width = containerRef.current.offsetWidth
+        setContainerWidth(width)
+        
+        // Adjust columns based on screen width
+        if (width < 640) {
+          setCols(1) // Mobile: 1 column
+        } else if (width < 1024) {
+          setCols(2) // Tablet: 2 columns
+        } else {
+          setCols(12) // Desktop: 12 columns
+        }
       }
     }
     
@@ -139,18 +150,18 @@ export default function DashboardGrid() {
   }
 
   return (
-    <div className="h-full p-8" ref={containerRef}>
+    <div className="h-full p-4 sm:p-6 md:p-8" ref={containerRef}>
       {showSettings && <DashboardSettings onClose={() => setShowSettings(false)} />}
       
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-4">
         <div>
-          <h1 className="text-3xl font-black text-white">{currentDashboard.name}</h1>
-          <p className="text-slate-400">{currentDashboard.description}</p>
+          <h1 className="text-2xl sm:text-3xl font-black text-white">{currentDashboard.name}</h1>
+          <p className="text-slate-400 text-sm sm:text-base">{currentDashboard.description}</p>
         </div>
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-3">
           <button
             onClick={toggleEditMode}
-            className={`px-6 py-3 font-bold transition-all ${
+            className={`px-6 py-3 font-bold transition-all min-h-[44px] ${
               isEditing
                 ? 'bg-green-600 hover:bg-green-500 text-white'
                 : 'bg-indigo-600 hover:bg-indigo-500 text-white'
@@ -162,13 +173,14 @@ export default function DashboardGrid() {
             <>
               <button
                 onClick={() => setShowSettings(true)}
-                className="px-6 py-3 bg-purple-600 hover:bg-purple-500 text-white font-bold transition-all"
+                className="px-6 py-3 bg-purple-600 hover:bg-purple-500 text-white font-bold transition-all min-h-[44px]"
               >
-                Dashboard Settings
+                <span className="hidden sm:inline">Dashboard Settings</span>
+                <span className="sm:hidden">Settings</span>
               </button>
               <button
                 onClick={() => setShowAddPanel(!showAddPanel)}
-                className="px-6 py-3 bg-pink-600 hover:bg-pink-500 text-white font-bold transition-all"
+                className="px-6 py-3 bg-pink-600 hover:bg-pink-500 text-white font-bold transition-all min-h-[44px]"
               >
                 Add Panel
               </button>
@@ -180,7 +192,7 @@ export default function DashboardGrid() {
       {showAddPanel && isEditing && (
         <div className="mb-6 bg-slate-900 border-2 border-slate-700 p-6">
           <h3 className="font-bold mb-4 text-white text-lg">Add New Panel</h3>
-          <div className="grid grid-cols-2 gap-3 mb-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
             <input
               value={newPanel.title}
               onChange={(e) => setNewPanel({ ...newPanel, title: e.target.value })}
@@ -229,7 +241,7 @@ export default function DashboardGrid() {
           </div>
           <button
             onClick={handleAddPanel}
-            className="px-6 py-2 bg-green-600 hover:bg-green-500 text-white font-bold transition-all"
+            className="w-full sm:w-auto px-6 py-2 bg-green-600 hover:bg-green-500 text-white font-bold transition-all min-h-[44px]"
           >
             Add
           </button>
@@ -244,7 +256,7 @@ export default function DashboardGrid() {
             y: panel.y,
             w: panel.w,
             h: panel.h,
-            minW: 2,
+            minW: cols === 1 ? 1 : 2,
             minH: 2,
           }))}
           width={containerWidth}
@@ -254,7 +266,7 @@ export default function DashboardGrid() {
           onLayoutChange={handleLayoutChange}
           draggableHandle=".drag-handle"
           compactType="vertical"
-          {...({ cols: 12 } as any)}
+          {...({ cols } as any)}
         >
         {currentDashboard.panels.map((panel) => (
           <div
@@ -262,20 +274,20 @@ export default function DashboardGrid() {
             className="bg-slate-900 border-2 border-slate-700 hover:border-indigo-500 transition-all flex flex-col"
           >
             {isEditing && (
-              <div className="bg-slate-800 border-b-2 border-slate-700 p-2 flex justify-between items-center">
+              <div className="bg-slate-800 border-b-2 border-slate-700 p-2 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                 <span className="drag-handle cursor-move text-white text-xs font-bold">☰ Drag to move</span>
-                <div className="flex gap-2">
+                <div className="flex gap-2 w-full sm:w-auto">
                   {editingPanelId === panel.id ? (
                     <>
                       <button
                         onClick={handleSavePanel}
-                        className="px-3 py-1 bg-green-600 hover:bg-green-500 text-white text-xs font-bold transition-all"
+                        className="flex-1 sm:flex-none px-3 py-1 bg-green-600 hover:bg-green-500 text-white text-xs font-bold transition-all min-h-[44px]"
                       >
                         Save
                       </button>
                       <button
                         onClick={handleCancelPanel}
-                        className="px-3 py-1 bg-yellow-600 hover:bg-yellow-500 text-white text-xs font-bold transition-all"
+                        className="flex-1 sm:flex-none px-3 py-1 bg-yellow-600 hover:bg-yellow-500 text-white text-xs font-bold transition-all min-h-[44px]"
                       >
                         Cancel
                       </button>
@@ -283,14 +295,14 @@ export default function DashboardGrid() {
                   ) : (
                     <button
                       onClick={() => handleStartEditPanel(panel)}
-                      className="px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition-all"
+                      className="flex-1 sm:flex-none px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition-all min-h-[44px]"
                     >
                       Edit
                     </button>
                   )}
                   <button
                     onClick={() => handleRemovePanel(panel.id)}
-                    className="px-3 py-1 bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition-all"
+                    className="flex-1 sm:flex-none px-3 py-1 bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition-all min-h-[44px]"
                   >
                     Delete
                   </button>

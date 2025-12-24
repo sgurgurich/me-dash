@@ -86,7 +86,7 @@ function AppContent() {
       <div className="h-screen bg-slate-950 flex flex-col overflow-hidden">
         {currentUser && <Navbar onNavigate={handleNavigate} currentView={currentView} />}
         
-        <main className={currentUser ? 'flex-1 overflow-auto p-8 pt-24' : 'flex-1 overflow-auto'}>
+        <main className={currentUser ? 'flex-1 overflow-auto p-4 sm:p-6 md:p-8 pt-20 sm:pt-24' : 'flex-1 overflow-auto'}>
           {currentView === 'login' && <Login />}
           {currentView === 'dashboards' && <DashboardList />}
           {currentView === 'dashboard' && <DashboardGrid />}

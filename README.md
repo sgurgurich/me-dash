@@ -1,6 +1,6 @@
 # Me.Dash - Personalized Dashboard Platform
 
-A modern Vue.js application that allows users to create, customize, and share personalized dashboards with drag-and-drop panels, dynamic resizing, theming, and user accounts.
+A modern React application that allows users to create, customize, and share personalized dashboards with drag-and-drop panels, dynamic resizing, theming, and user accounts.
 
 ## Features
 
@@ -38,9 +38,9 @@ A modern Vue.js application that allows users to create, customize, and share pe
 
 ## Tech Stack
 
-- **Vue 3** - Progressive JavaScript framework
+- **React 18** - A JavaScript library for building user interfaces with components
 - **TypeScript** - Type-safe development
-- **Pinia** - Vue state management
+- **Zustand** - Lightweight React state management
 - **Tailwind CSS** - Utility-first CSS framework
 - **Vite** - Next generation frontend tooling
 - **Axios** - HTTP client library
@@ -50,22 +50,22 @@ A modern Vue.js application that allows users to create, customize, and share pe
 ```
 src/
 ├── components/
-│   ├── DashboardGrid.vue      # Main dashboard grid container
-│   ├── DashboardPanel.vue     # Panel wrapper component
-│   ├── DashboardList.vue      # Dashboard listing and management
-│   ├── Login.vue              # Authentication screen
-│   ├── Navbar.vue             # Top navigation bar
-│   ├── Settings.vue           # Theme and color settings
+│   ├── DashboardGrid.tsx      # Main dashboard grid container
+│   ├── DashboardPanel.tsx     # Panel wrapper component
+│   ├── DashboardList.tsx      # Dashboard listing and management
+│   ├── Login.tsx              # Authentication screen
+│   ├── Navbar.tsx             # Top navigation bar
+│   ├── Settings.tsx           # Theme and color settings
 │   └── panels/
-│       ├── NotesPanel.vue     # Notes panel
-│       ├── StatsPanel.vue     # Statistics display
-│       ├── ChartPanel.vue     # Chart visualization
-│       ├── CalendarPanel.vue  # Calendar view
-│       └── WeatherPanel.vue   # Weather display
-├── stores/
-│   └── dashboard.ts           # Pinia dashboard store
-├── App.vue                    # Root component
-├── main.ts                    # Application entry point
+│       ├── NotesPanel.tsx     # Notes panel
+│       ├── StatsPanel.tsx     # Statistics display
+│       ├── ChartPanel.tsx     # Chart visualization
+│       ├── CalendarPanel.tsx  # Calendar view
+│       └── WeatherPanel.tsx   # Weather display
+├── context/
+│   └── DashboardContext.tsx   # React context for dashboard state management
+├── App.tsx                    # Root component
+├── main.tsx                   # Application entry point
 └── style.css                  # Global styles with Tailwind
 
 ```
@@ -144,7 +144,7 @@ The application includes a demo authentication system:
 
 ## Future Enhancements
 
-- [ ] Full drag-and-drop implementation with vue-grid-layout
+- [ ] Full drag-and-drop implementation with react-beautiful-dnd or dnd-kit
 - [ ] Backend API integration for data persistence
 - [ ] Real-time collaboration features
 - [ ] Advanced charting with Chart.js or D3.js
@@ -159,19 +159,19 @@ The application includes a demo authentication system:
 
 ### Creating New Panel Types
 
-1. Create a new component in `src/components/panels/MyPanel.vue`
-2. Import it in `src/components/DashboardPanel.vue`
-3. Add it to the `panelComponents` object
-4. Add the type to the `DashboardPanel` interface in `src/stores/dashboard.ts`
-5. Update the panel type select dropdown in `DashboardGrid.vue`
+1. Create a new component in `src/components/panels/MyPanel.tsx`
+2. Import it in `src/components/DashboardPanel.tsx`
+3. Add it to the panel type mapping
+4. Update the panel type interface in the context
+5. Update the panel type select dropdown in `DashboardGrid.tsx`
 
 ### Adding Features
 
-All state management is centralized in the Pinia store (`src/stores/dashboard.ts`). To add new features:
+All state management is centralized in React Context (`src/context/DashboardContext.tsx`). To add new features:
 
-1. Add methods/state to the store
-2. Use `useDashboardStore()` in components
-3. Call store methods to update state
+1. Add state and methods to the context
+2. Use the `useDashboard` hook in components
+3. Call context methods to update state
 
 ## License
 

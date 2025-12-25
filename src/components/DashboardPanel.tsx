@@ -7,6 +7,7 @@ import WeatherPanel from './panels/WeatherPanel'
 import EmbedPanel from './panels/EmbedPanel'
 import IframePanel from './panels/IframePanel'
 import TwitterPanel from './panels/TwitterPanel'
+import GoogleCalendarPanel from './panels/GoogleCalendarPanel'
 
 interface Props {
   panel: DashboardPanelType
@@ -32,6 +33,8 @@ export default function DashboardPanel({ panel, isEditing = false }: Props) {
         return <IframePanel panel={panel} isEditing={isEditing} />
       case 'twitter':
         return <TwitterPanel panel={panel} isEditing={isEditing} />
+      case 'google-calendar':
+        return <GoogleCalendarPanel panel={panel} isEditing={isEditing} />
       default:
         return <NotesPanel panel={panel} isEditing={isEditing} />
     }

@@ -37,10 +37,10 @@ export default function StockPanel({ data, onDataChange, isEditMode }: StockPane
     setError(null)
     
     try {
-      // Using Yahoo Finance API alternative - Financial Modeling Prep (free tier)
-      // You can also use Alpha Vantage, Finnhub, or other APIs
+      // Using Twelve Data API (free tier, no API key needed for basic quotes)
+      // Alternative: You can also use Alpha Vantage, Finnhub, or Yahoo Finance
       const response = await fetch(
-        `https://financialmodelingprep.com/api/v3/quote/${stockSymbol.toUpperCase()}?apikey=demo`
+        `https://api.twelvedata.com/quote?symbol=${stockSymbol.toUpperCase()}&apikey=demo`
       )
       
       if (!response.ok) {
@@ -49,22 +49,26 @@ export default function StockPanel({ data, onDataChange, isEditMode }: StockPane
       
       const data = await response.json()
       
-      if (data && data.length > 0) {
-        const stock = data[0]
-        setStockData({
-          symbol: stock.symbol,
-          price: stock.price,
-          change: stock.change,
-          changePercent: stock.changesPercentage,
-          high: stock.dayHigh,
-          low: stock.dayLow,
-          open: stock.open,
-          previousClose: stock.previousClose,
-        })
-      } else {
-        throw new Error('Stock symbol not found')
+      if (data.status === 'error' || !data.symbol) {
+        throw new Error(data.message || 'Stock symbol not found')
       }
+      
+      const price = parseFloat(data.close || data.price || 0)
+      const change = parseFloat(data.change || 0)
+      const changePercent = parseFloat(data.percent_change || 0)
+      
+      setStockData({
+        symbol: data.symbol,
+        price: price,
+        change: change,
+        changePercent: changePercent,
+        high: parseFloat(data.high || price),
+        low: parseFloat(data.low || price),
+        open: parseFloat(data.open || price),
+        previousClose: parseFloat(data.previous_close || price),
+      })
     } catch (err) {
+      console.error('Stock fetch error:', err)
       setError(err instanceof Error ? err.message : 'Failed to fetch stock data')
       setStockData(null)
     } finally {
@@ -156,7 +160,7 @@ export default function StockPanel({ data, onDataChange, isEditMode }: StockPane
           </div>
 
           <div className="mt-4 text-xs text-slate-500">
-            Note: Using demo API key with limited requests. For production, get your own API key from financialmodelingprep.com
+            Note: Using demo API key with limited requests. For production, get your own API key from twelvedata.com (free tier available)
           </div>
         </div>
       )}

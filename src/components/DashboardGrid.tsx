@@ -242,6 +242,7 @@ export default function DashboardGrid() {
               <option value="iframe">iFrame</option>
               <option value="twitter">Twitter/X Timeline</option>
               <option value="google-calendar">Google Calendar</option>
+              <option value="stock">Stock Ticker</option>
             </select>
           </div>
           <div className="grid grid-cols-2 gap-2 mb-3">

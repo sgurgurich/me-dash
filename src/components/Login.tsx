@@ -20,7 +20,7 @@ export default function Login() {
   }
 
   return (
-    <div className="h-screen w-screen bg-indigo-600 flex items-center justify-center p-4">
+    <div className="h-screen w-screen bg-orange-500 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className="inline-block bg-white p-4 mb-4">
